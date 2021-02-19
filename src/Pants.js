@@ -40,7 +40,7 @@ function Pants() {
 
           <div className="input">
             <h1>Daj do gatí ...</h1>
-            <button onClick={toggleVisibility}>strašne moc chcem dať niečo do gati</button>
+            <button className={visibility ? "invisible" : "visible input-toggle"} onClick={toggleVisibility}>strašne moc chcem dať niečo do gatí</button>
             <form onSubmit={addPantsItem}>
               <input  className={visibility ? "visible" : "invisible"}
                       placeholder="čo chceš dať do gatí?"
@@ -57,7 +57,7 @@ function Pants() {
 
             {pantsItem.map(pantsItem => <p>{pantsItem.text} máš v gaťoch! 👖</p>)}
 
-            <button onClick={clearStorage}>clear</button>
+            <button className="clear" onClick={clearStorage}>clear🙀</button>
 
         </div>
       )
