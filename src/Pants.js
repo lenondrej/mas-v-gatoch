@@ -3,29 +3,61 @@ import './Pants.css';
 
 function Pants() {
 
-    const [pantsItem, setPantsItem] = useState(
-      window.localStorage.getItem('pantsItem') || ''
-    )
+    const [pantsItem, setPantsItem] = useState([]);
 
-    React.useEffect(() => {
-      window.localStorage.setItem('pantsItem', pantsItem)
-    })
+    const [visibility, toggleVisibility] = useState(false);
 
-    const handleChange = (event) => setPantsItem(event.target.value)
+    useEffect(() => {
+      const json = localStorage.getItem("pantsItems");
+      const savedItems = JSON.parse(json);
+      if (savedItems) {
+        setPantsItem(savedItems);
+      }
+    }, [setPantsItem]);
+
+    useEffect(() => {
+      const json =JSON.stringify(pantsItem);
+      localStorage.setItem("pantsItems", json);
+    }, [pantsItem]);
+
+    const addPantsItem = (e) => {
+      e.preventDefault();
+      const newItem = {
+        id: Math.random().toString(36).substr(2, 9),
+        text: e.target.pantsInput.value
+      };
+      setPantsItem([...pantsItem, newItem]);
+      e.target.pantsInput.value = "";
+    };
+
+    const clearStorage = (e) => {
+      setPantsItem([]);
+      localStorage.setItem("pantsItems", "")
+    };
+
       return (
-        <div className="text-white text-3xl font-sans grid grid-rows-2">
+        <div className="main">
 
-          <div className="text-center p-3 content-center text-4xl">
-            <form>
-              <label className="mr-2">daj</label>
-              <input className= "placeholder-gray-500 text-black rounded-full text-center p-1" placeholder="✍🏻" type="text" onChange={handleChange} id="pantsInput" />
-              <label className="ml-2"> do gatí</label>
+          <div className="input">
+            <h1>Daj do gatí ...</h1>
+            <button onClick={toggleVisibility}>strašne moc chcem dať niečo do gati</button>
+            <form onSubmit={addPantsItem}>
+              <input  className={visibility ? "visible" : "invisible"}
+                      placeholder="čo chceš dať do gatí?"
+                      type="text"
+                      name="pantsInput" />
             </form>
             </div>
 
-            <div className="text-center mt-5">
-              {pantsItem ? <p> 👖 {pantsItem} máš v gaťoch 👖 </p> : <p className="text-gray-300">zatiaľ máš gate prázdne 😔</p>}
+            <div className="items">
+              {pantsItem.length === 0 ? <p>tvoje gate zívajú prázdnotou 😔</p> : <p></p>}
             </div>
+
+            {/* {pantsItem.filter(pantsItem[pantsItem.length - 1].text)} */}
+
+            {pantsItem.map(pantsItem => <p>{pantsItem.text} máš v gaťoch! 👖</p>)}
+
+            <button onClick={clearStorage}>clear</button>
 
         </div>
       )

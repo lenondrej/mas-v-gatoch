@@ -1,19 +1,17 @@
 {
-  "name": "mas-v-gatoch-react",
+  "name": "mas-v-gatoch-react-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-scripts": "4.0.1",
-    "tailwindcss": "^2.0.2"
+    "react-scripts": "4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build-css": "npx tailwindcss-cli@latest build ./src/style.css -o ./public/style.css"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
